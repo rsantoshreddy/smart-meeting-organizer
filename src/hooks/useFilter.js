@@ -9,15 +9,16 @@ const overlapFilter = (meeting) => {
   );
 };
 
-const useFilter = ({ id, data }) => {
-  const { length } = data;
-
+const useFilter = ({ id, data, selectedBuilding }) => {
   switch (id) {
     case 'Buildings':
-      return { total: length };
+      const buildings = data.filter((d) => d.id === +selectedBuilding);
+      return { total: buildings.length };
     case 'MeetingRooms':
       let freeRooms = 0;
-      data.forEach((room) => {
+      const rooms = data.filter((d) => d.building.id === +selectedBuilding);
+      const { length } = rooms;
+      rooms.forEach((room) => {
         const { meetings } = room;
         const overlap = meetings.filter(overlapFilter);
         if (!overlap.length) {
@@ -26,8 +27,13 @@ const useFilter = ({ id, data }) => {
       });
       return { total: length, freeRooms };
     case 'Meetings':
-      const activeMeetings = data.filter(overlapFilter);
-      return { total: length, activeMeetings };
+      const meetings = data.filter(
+        (d) =>
+          d.meetingRoom.building &&
+          d.meetingRoom.building.id === +selectedBuilding
+      );
+      const activeMeetings = meetings.filter(overlapFilter);
+      return { total: meetings.length, activeMeetings };
   }
 };
 

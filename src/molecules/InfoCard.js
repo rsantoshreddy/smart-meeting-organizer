@@ -1,8 +1,12 @@
 import { Card, CardHeader, CardBody, CardText } from 'reactstrap';
 import useFilter from '../hooks/useFilter';
 
-const InfoCard = ({ id, title, data }) => {
-  const { total, freeRooms, activeMeetings } = useFilter({ id, data });
+const InfoCard = ({ id, title, data, selectedBuilding }) => {
+  const { total, freeRooms, activeMeetings } = useFilter({
+    id,
+    data,
+    selectedBuilding,
+  });
   return (
     <Card className='mb-3'>
       <CardHeader>{title}</CardHeader>

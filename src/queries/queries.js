@@ -19,6 +19,11 @@ export const getMeetings = () => {
         date
         startTime
         endTime
+        meetingRoom {
+          building {
+            id
+          }
+        }
       }
     }
   `;
@@ -32,6 +37,7 @@ export const getMeetingRooms = () => {
         floor
         building {
           name
+          id
         }
         meetings {
           title

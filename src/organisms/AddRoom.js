@@ -16,7 +16,7 @@ const AddRoom = (props) => {
         title={title}
         Component={InfoCard}
       /> */}
-      {console.log(JSON.stringify(location))}
+      {JSON.stringify(location)}
 
       <div className='text-center'>
         <Button color='primary' outline>
